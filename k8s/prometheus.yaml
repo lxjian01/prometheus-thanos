@@ -67,8 +67,13 @@ spec:
           timeoutSeconds: 3
         volumeMounts:
         - mountPath: /etc/prometheus
-          name: config-volume
+          name: prometheus-config
+        - mountPath: /etc/prometheus/rules
+          name: prometheus-rules
       volumes:
-      - name: config-volume
+      - name: prometheus-config
         configMap:
           name: prometheus-config
+      - name: prometheus-rules
+        configMap:
+          name: prometheus-rules

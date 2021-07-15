@@ -68,12 +68,17 @@ spec:
         volumeMounts:
         - mountPath: /etc/prometheus
           name: prometheus-config
+          readOnly: true
+        - mountPath: /etc/prometheus/data
+          name: prometheus-storage
         - mountPath: /etc/prometheus/rules
           name: prometheus-rules
       volumes:
       - name: prometheus-config
         configMap:
           name: prometheus-config
+      - name: prometheus-storage
+        emptyDir: {}
       - name: prometheus-rules
         configMap:
           name: prometheus-rules

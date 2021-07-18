@@ -2,10 +2,12 @@
 Description=thanos query
 Documentation=thanos query
 [Service]
-ExecStart=/usr/local/monitor/thanos-0.20.2.linux-amd64/thanos query \
+ExecStart=/usr/local/monitor/thanos-0.11.0.linux-amd64/thanos query \
   --grpc-address=0.0.0.0:10901 \
   --http-address=0.0.0.0:9090 \
-  --query.replica-label=monitor \
+  --query.partial-response \ # 用 Partial Response，这样可以在部分后端 Store API 返回错误或超时的情况下也能看到正确的监控数据
+  --query.auto-downsampling \  # 查询时自动降采样，提升查询效率
+  --query.replica-label=prometheus_replica \
   --store=192.168.219.128:10901 \
   --store=192.168.219.161:31726
 [Install]

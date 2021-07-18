@@ -2,9 +2,9 @@
 Description=Prometheus monitoring system
 Documentation=Prometheus monitoring system
 [Service]
-ExecStart=/usr/local/monitor/prometheus-2.25.2.linux-amd64/prometheus \
-  --config.file=/usr/local/monitor/prometheus-2.25.2.linux-amd64/prometheus.yml \
-  --storage.tsdb.path=/usr/local/monitor/prometheus-2.25.2.linux-amd64/data \
+ExecStart=/usr/local/monitor/prometheus-2.15.2.linux-amd64/prometheus \
+  --config.file=/usr/local/monitor/prometheus-2.15.2.linux-amd64/prometheus.yml \
+  --storage.tsdb.path=/usr/local/monitor/prometheus-2.15.2.linux-amd64/data \
   --storage.tsdb.max-block-duration=2h \
   --storage.tsdb.min-block-duration=2h \
   --web.enable-lifecycle

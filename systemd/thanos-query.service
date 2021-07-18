@@ -11,7 +11,7 @@ ExecStart=/usr/local/monitor/thanos-0.11.0.linux-amd64/thanos query \
   --query.replica-label=rule_replica \
   --store=192.168.219.128:10901 \
   --store=192.168.219.128:10908 \
-  --store=192.168.219.161:32491 \
-  --store=192.168.219.161:31531
+  --store=192.168.219.161:30916 \
+  --store=192.168.219.161:32294
 [Install]
 WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=thanos query
+Documentation=thanos query
+[Service]
+ExecStart=/usr/local/monitor/thanos-0.20.2.linux-amd64/thanos query \
+  --grpc-address=0.0.0.0:10901 \
+  --http-address=0.0.0.0:9090 \
+  --query.replica-label=monitor \
+  --store=192.168.219.128:10901 \
+  --store=192.168.219.161:31726
+[Install]
+WantedBy=multi-user.target

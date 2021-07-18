@@ -5,10 +5,13 @@ Documentation=thanos query
 ExecStart=/usr/local/monitor/thanos-0.11.0.linux-amd64/thanos query \
   --grpc-address=0.0.0.0:10901 \
   --http-address=0.0.0.0:9090 \
-  --query.partial-response \ # 用 Partial Response，这样可以在部分后端 Store API 返回错误或超时的情况下也能看到正确的监控数据
-  --query.auto-downsampling \  # 查询时自动降采样，提升查询效率
+  --query.auto-downsampling \
+  --query.partial-response \
   --query.replica-label=prometheus_replica \
+  --query.replica-label=rule_replica \
   --store=192.168.219.128:10901 \
-  --store=192.168.219.161:31726
+  --store=192.168.219.128:10908 \
+  --store=192.168.219.161:32491 \
+  --store=192.168.219.161:31531
 [Install]
 WantedBy=multi-user.target

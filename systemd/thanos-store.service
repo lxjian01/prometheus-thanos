@@ -1,0 +1,11 @@
+[Unit]
+Description=Thanos store
+Documentation=Thanos store
+[Service]
+ExecStart=/usr/local/monitor/thanos-0.11.0.linux-amd64/thanos store \
+  --data-dir=/usr/local/monitor/thanos-0.11.0.linux-amd64/store \
+  --objstore.config-file=/usr/local/monitor/thanos-0.11.0.linux-amd64/objectstorage.yaml \
+  --grpc-address=0.0.0.0:10908 \
+  --http-address=0.0.0.0:10909
+[Install]
+WantedBy=multi-user.target

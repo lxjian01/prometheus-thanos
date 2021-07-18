@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: thanos-query
 spec:
-  serviceName: prometheus-headless
+  serviceName: prometheus
   podManagementPolicy: Parallel
   replicas: 2
   selector:
@@ -70,7 +70,7 @@ spec:
           name: prometheus-config
           readOnly: true
         - mountPath: /etc/prometheus/data
-          name: prometheus-storage
+          name: prometheus-data
         - mountPath: /etc/prometheus/rules
           name: prometheus-rules
       - name: thanos
@@ -80,6 +80,8 @@ spec:
         - --log.level=debug
         - --tsdb.path=/prometheus
         - --prometheus.url=http://127.0.0.1:9090
+        - --grpc-address=0.0.0.0:10901
+        - --http-address=0.0.0.0:10902
         env:
         - name: POD_NAME
           valueFrom:
@@ -102,7 +104,7 @@ spec:
       - name: prometheus-config
         configMap:
           name: prometheus-config
-      - name: prometheus-storage
+      - name: prometheus-data
         emptyDir: {}
       - name: prometheus-rules
         configMap:

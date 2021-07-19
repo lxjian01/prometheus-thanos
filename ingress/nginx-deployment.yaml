@@ -1,0 +1,33 @@
+apiVersion: apps/v1         #指定api版本，此值必须在kubectl apiversion中 
+kind: Deployment            # 指定创建资源的角色/类型  
+metadata:                   #资源的元数据/属性
+  name: nginx-deployment    #资源的名字，在同一个namespace中必须唯一  
+  labels:                   #设定资源的标签
+    app: nginx
+spec:                       #指定该资源的内容 
+  replicas: 1               #创建1个nginx容器 
+  selector:                 #节点选择
+    matchLabels:
+      app: nginx             
+  template:
+    metadata:
+      labels:
+        app: nginx           #设定资源的标签
+    spec:
+      containers:
+      - name: nginx             #容器的名字
+        image: nginx:1.18.0     #容器使用的镜像地址  
+        ports:
+        - containerPort: 80     #容器开发对外的端口
+---
+apiVersion: v1               # API 版本号
+kind: Service                # 类型，如：Pod/ReplicationController/Deployment/Service/Ingress
+metadata:                    # 元数据
+  name: nginx-deployment     # Kind 的名称
+spec:
+  ports:  
+    - port: 80               # Service 暴露的端口
+      targetPort: 80         # Pod 上的端口，这里是将 Service 暴露的端口转发到 Pod 端口上
+  type: ClusterIP         # 类型
+  selector:                  # 标签选择器
+    app: nginx               # 需要和上面部署的 Deployment 标签名对应

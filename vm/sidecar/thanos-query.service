@@ -16,6 +16,7 @@ ExecStart=/usr/local/monitor/thanos/thanos query \
   --store=192.168.219.128:10901 \
   --store=192.168.219.128:10903 \
   --store=192.168.219.161:32480 \
+  --store=192.168.219.159:10906 \
   --store=192.168.219.161:30916
 Restart=always
 SyslogIdentifier=thanos-query

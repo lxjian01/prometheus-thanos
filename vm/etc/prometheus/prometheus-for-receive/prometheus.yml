@@ -4,7 +4,7 @@ global:
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
   external_labels:
-    monitor: '192.168.219.128'
+    monitor: 'openstack'
 
 # Alertmanager configuration
 alerting:
@@ -19,6 +19,10 @@ rule_files:
   # - "second_rules.yml"
   - ./*.rules
 
+# 远程写入功能相关的设置
+remote_write:
+  - url: http://0.0.0.0:19291/api/v1/receive
+
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
 scrape_configs:
@@ -31,10 +35,11 @@ scrape_configs:
     static_configs:
     - targets: ['localhost:9090']
 
-  - job_name: '192.168.219.128'
+  - job_name: '192.168.219.159'
     consul_sd_configs:
       - server: '192.168.219.128:8500'
         services: []
+        tags: ["openstack"]
     relabel_configs:
       - regex: __meta_consul_service_metadata_(.+)
         action: labelmap

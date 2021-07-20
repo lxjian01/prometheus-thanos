@@ -8,8 +8,8 @@ PIDFile=/var/run/prometheus.pid
 ExecStop=/bin/kill -9 $MAINPID
 ExecStart=/usr/local/monitor/prometheus/prometheus \
   --web.listen-address=:9090 \
-  --config.file=/usr/local/monitor/prometheus/prometheus.yml \
-  --storage.tsdb.path=/usr/local/monitor/prometheus/data \
+  --config.file=/etc/prometheus/prometheus.yml \
+  --storage.tsdb.path=/data/prometheus \
   --web.enable-lifecycle \
   --storage.tsdb.retention.time=7d \
   --query.lookback-delta=10m \

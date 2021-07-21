@@ -1,0 +1,13 @@
+[Unit]
+Description=Redis exporter
+After=network.target
+[Service]
+LimitNOFILE=65535
+Type=simple
+PIDFile=/var/run/prometheus.pid
+ExecStop=/bin/kill -9 $MAINPID
+ExecStart=/usr/local/monitor/redis_exporter-v1.24.0.linux-amd64/redis_exporter 
+Restart=always
+SyslogIdentifier=redis-exporter
+[Install]
+WantedBy=multi-user.target

@@ -4,7 +4,7 @@ global:
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
   external_labels:
-    monitor: 'openstack'
+    cluster: 'openstack'
 
 # Alertmanager configuration
 alerting:
@@ -35,11 +35,11 @@ scrape_configs:
     static_configs:
     - targets: ['localhost:9090']
 
-  - job_name: '192.168.219.159'
+  - job_name: 'node-exporter'
     consul_sd_configs:
       - server: '192.168.219.128:8500'
         services: []
-        tags: ["openstack"]
+        tags: ["openstack","node-exporter"]
     relabel_configs:
       - regex: __meta_consul_service_metadata_(.+)
         action: labelmap

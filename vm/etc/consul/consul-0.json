@@ -1,0 +1,24 @@
+{
+  "ID": "node-exporter-192.168.219.128",
+  "Name": "node-exporter-192.168.219.128",
+  "Tags": [
+    "node-exporter"
+  ],
+  "Address": "192.168.219.128",
+  "Port": 9100,
+  "Meta": {
+    "env": "dev",
+    "team": "big-data-group",
+    "project": "spark",
+    "app": "spring-boot"
+  },
+  "EnableTagOverride": false,
+  "Check": {
+    "HTTP": "http://192.168.219.128:9100/metrics",
+    "Interval": "10s"
+  },
+  "Weights": {
+    "Passing": 10,
+    "Warning": 1
+  }
+}

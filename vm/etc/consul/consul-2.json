@@ -1,0 +1,24 @@
+{
+  "ID": "cadvisor-exporter-192.168.219.128",
+  "Name": "cadvisor-exporter-192.168.219.128",
+  "Tags": [
+    "cadvisor-exporter"
+  ],
+  "Address": "192.168.219.128",
+  "Port": 8080,
+  "Meta": {
+    "env": "dev",
+    "team": "cloud-group",
+    "project": "docker-service",
+    "app": "docker"
+  },
+  "EnableTagOverride": false,
+  "Check": {
+    "HTTP": "http://192.168.219.128:9100/metrics",
+    "Interval": "10s"
+  },
+  "Weights": {
+    "Passing": 10,
+    "Warning": 1
+  }
+}

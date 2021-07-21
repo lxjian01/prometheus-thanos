@@ -3,6 +3,8 @@
 ## 版本
 * prometheus:v2.15.2
 * thanos-0.17.2
+* consul v1.9.4
+* consul-template v0.25.2
 
 ## 架构选型参考
 如果你的 Query 跟 Sidecar 离的比较远，比如 Sidecar 分布在多个数据中心，Query 向所有 Sidecar 查数据，速度会很慢，这种情况可以考虑用 Receiver，将数据集中吐到 Receiver，然后 Receiver 与 Query 部署在一起，Query 直接向 Receiver 查最新数据，提升查询性能。

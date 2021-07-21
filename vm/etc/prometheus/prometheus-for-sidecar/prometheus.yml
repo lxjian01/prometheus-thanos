@@ -4,38 +4,46 @@ global:
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
   external_labels:
-    monitor: 'portal'
+    cluster: 'portal'
 
 # Alertmanager configuration
 alerting:
   alertmanagers:
   - static_configs:
-    - targets: ['0.0.0.0:9093']
+    - targets: ['192.168.219.128:9093']
       # - alertmanager:9093
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-  # - "first_rules.yml"
-  # - "second_rules.yml"
-  - ./*.rules
+  - "/etc/prometheus/recording-rules.yml"
+  - "/etc/prometheus/alerting-rules.yml"
+  - "/etc/prometheus/*.rules"
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: 'prometheus'
-
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
-
+    relabel_configs:
+      - target_label: env
+        replacement: dev
     static_configs:
     - targets: ['localhost:9090']
 
-  - job_name: '192.168.219.128'
+  - job_name: 'node-exporter'
     consul_sd_configs:
       - server: '192.168.219.128:8500'
         services: []
-        tags: ["portal"]
+        tags: ["portal","node-exporter"]
+    relabel_configs:
+      - regex: __meta_consul_service_metadata_(.+)
+        action: labelmap
+
+  - job_name: 'redis-exporter'
+    consul_sd_configs:
+      - server: '192.168.219.128:8500'
+        services: []
+        tags: ["portal","redis-exporter"]
     relabel_configs:
       - regex: __meta_consul_service_metadata_(.+)
         action: labelmap
